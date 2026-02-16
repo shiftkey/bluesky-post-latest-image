@@ -42,6 +42,13 @@ using (var image = Image.Load(latestImage))
     imageAsBytes = outStream.ToArray();
 }
 
+var humanDescription = Environment.GetEnvironmentVariable("HUMAN_DESCRIPTION");
+if (humanDescription == null)
+{
+    Console.WriteLine("Missing environment variable HUMAN_DESCRIPTION");
+    Environment.Exit(1);
+}
+
 BlueskyAgent agent = new();
 
 var username = Environment.GetEnvironmentVariable("BLUESKY_USERNAME");
@@ -74,7 +81,7 @@ if (loginResult.Succeeded)
     if (imageUploadResult.Succeeded)
     {
         var response = await agent.Post(
-          $"It is {currentTimeText} and not a lot is happening...",
+          $"It is {currentTimeText} and ${humanDescription}...",
           imageUploadResult.Result,
           cancellationToken: cancellationToken);
 

@@ -81,7 +81,7 @@ if (loginResult.Succeeded)
     if (imageUploadResult.Succeeded)
     {
         var response = await agent.Post(
-          $"It is {currentTimeText} and ${humanDescription}...",
+          $"It is {currentTimeText} and {humanDescription}...",
           imageUploadResult.Result,
           cancellationToken: cancellationToken);
 
